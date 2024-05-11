@@ -19,27 +19,40 @@
       <form action="/api/users/:_id/exercises" id="exercise-form" method="post">
         <h2>Add exercises</h2>
         <p><code>POST /api/users/:_id/exercises</code></p>
-        <input id="uid" type="text" name=":_id" placeholder=":_id" />
+        <input id="uid" type="text" name="_id" placeholder="_id" />
         <input id="desc" type="text" name="description" placeholder="description*" />
         <input id="dur" type="text" name="duration" placeholder="duration* (mins.)" />
         <input id="date" type="text" name="date" placeholder="date (yyyy-mm-dd)" />
         <input type="submit" value="Submit" />
       </form>
-      <p>
-        <strong>GET user's exercise log: </strong>
-        <code>GET /api/users/:_id/logs?[from][&amp;to][&amp;limit]</code>
-      </p>
+      <form action="/api/users/:_id/logs" id="log-form" method="get">
+        <h2>Get exercise log</h2>
+        <p><code>GET /api/users/:_id/logs?[from][&amp;to][&amp;limit]</code></p>
+        <input id="log-uid" type="text" name="_id" placeholder="_id" />
+        <input id="log-from" type="text" name="from" placeholder="from (yyyy-mm-dd)" />
+        <input id="log-to" type="text" name="to" placeholder="to (yyyy-mm-dd)" />
+        <input id="log-limit" type="text" name="limit" placeholder="limit" />
+        <input type="submit" value="Submit" />
+      </form>
       <p><strong>[ ]</strong> = optional</p>
       <p><strong>from, to</strong> = dates (yyyy-mm-dd); <strong>limit</strong> = number</p>
     </div>
     <script>
       const exerciseForm = document.getElementById("exercise-form");
+      const logForm = document.getElementById("log-form");
 
       exerciseForm.addEventListener("submit", () => {
         const userId = document.getElementById("uid").value;
         exerciseForm.action = `/api/users/${userId}/exercises`;
 
         exerciseForm.submit();
+      });
+
+      logForm.addEventListener("submit", () => {
+        const userId = document.getElementById("log-uid").value;
+        logForm.action = `/api/users/${userId}/logs`;
+
+        logForm.submit();
       });
     </script>
   </body>
